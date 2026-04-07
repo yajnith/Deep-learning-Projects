@@ -1,0 +1,55 @@
+import numpy as np
+
+# -------------------------------
+# Activation Functions
+# -------------------------------
+def threshold(x): return 1 if x >= 0 else 0
+def sigmoid(x): return 1/(1+np.exp(-x))
+def relu(x): return max(0, x)
+def tanh(x): return np.tanh(x)
+
+# -------------------------------
+# Neuron Model
+# -------------------------------
+def neuron(x, w, b, activation):
+    z = np.dot(x, w) + b
+    return activation(z)
+
+# -------------------------------
+# Input & Weights
+# -------------------------------
+x = np.array([1, 2])       # inputs
+w = np.array([0.5, -1.5])  # weights
+
+# -------------------------------
+# Fixed Bias
+# -------------------------------
+b_fixed = 0.5
+
+print("Fixed Bias Outputs:")
+print("Threshold:", neuron(x, w, b_fixed, threshold))
+print("Sigmoid:", neuron(x, w, b_fixed, sigmoid))
+print("ReLU:", neuron(x, w, b_fixed, relu))
+print("Tanh:", neuron(x, w, b_fixed, tanh))
+
+# -------------------------------
+# Varying Bias
+# -------------------------------
+print("\nVarying Bias Outputs:")
+for b in [-1, 0, 1]:
+    print(f"\nBias = {b}")
+    print("Threshold:", neuron(x, w, b, threshold))
+    print("Sigmoid:", neuron(x, w, b, sigmoid))
+    print("ReLU:", neuron(x, w, b, relu))
+    print("Tanh:", neuron(x, w, b, tanh))
+
+# -------------------------------
+# Simple Neural Network (1-layer)
+# -------------------------------
+def simple_nn(x):
+    W = np.array([[0.5, -1.0], [1.5, 2.0]])
+    b = np.array([0.5, -0.5])
+    z = np.dot(x, W) + b
+    return sigmoid(z)
+
+print("\nSimple Neural Network Output:", simple_nn(x))
